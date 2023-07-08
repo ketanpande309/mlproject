@@ -1,0 +1,1 @@
+#In this file, we create a training pipeline, which will trigger the files from components folder
