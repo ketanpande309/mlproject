@@ -7,6 +7,7 @@ import dill
 import pickle
 from sklearn.metrics import r2_score
 from src.exception import CustomException
+from sklearn.model_selection import GridSearchCV
 
 def save_object(file_path,obj):
     try:
@@ -20,13 +21,19 @@ def save_object(file_path,obj):
     except Exception as e:
         raise CustomException(e,sys)
     
-def evaluate_models(Xtrain,ytrain,Xtest,ytest,models):
+def evaluate_models(Xtrain,ytrain,Xtest,ytest,models,params):
     try:
         report = {}
 
         for i in range(len(list(models))):
             model = list(models.values())[i]
+            para = params[list(models.keys())[i]]
 
+
+            gv = GridSearchCV(model,para,cv=3)
+            gv.fit(Xtrain,ytrain)
+
+            model.set_params(**gv.best_params_)
             model.fit(Xtrain,ytrain)
 
             ytrain_pred = model.predict(Xtrain)
