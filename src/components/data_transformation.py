@@ -28,8 +28,8 @@ class DataTransformation:
         '''
 
         try:
-            numerical_columns = ['writing score','reading score']
-            categorical_columns = ['gender','race/ethnicity','parental level of education','lunch','test preparation course']
+            numerical_columns = ['writing_score','reading_score']
+            categorical_columns = ['gender','race_ethnicity','parental_level_of_education','lunch','test_preparation_course']
 
             num_pipeline = Pipeline(
                 steps=[
@@ -71,8 +71,8 @@ class DataTransformation:
             logging.info('Object Preprocessing Object')
             preprocessing_obj = self.get_data_transformer_object()
 
-            target_column = "math score"
-            numerical_column = ['writing score','reading score']
+            target_column = "math_score"
+            numerical_column = ['writing_score','reading_score']
 
             input_feature_train_data = train_data.drop(columns=[target_column],axis=1)
             target_train_data = train_data[target_column]
@@ -100,7 +100,7 @@ class DataTransformation:
             return(
                 train_arr,
                 test_arr,
-                self.data_transformation_config.preprocessor_obj_file_path
+                self.data_transformation_config.preprocessor_obj_file_path,
             )
     
         except Exception as e:
